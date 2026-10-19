@@ -1,0 +1,6 @@
+{
+  "name": "LOVEBUG - Romantic Date Invitation",
+  "description": "An ultra-cute interactive romantic date invitation website with playful interactions, 3D Lovebug companion, custom AI date memory studio, and WhatsApp date planner.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
