@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { sound } from '../utils/audio';
 import { ArrowLeft, Check, Sparkles } from 'lucide-react';
@@ -10,13 +11,54 @@ interface StepFoodProps {
 }
 
 export const FOOD_OPTIONS: FoodOption[] = [
-  { id: 'pizza', label: 'Pizza', emoji: '🍕', tagline: 'Cheesy slices & smiles' },
-  { id: 'sushi', label: 'Sushi', emoji: '🍣', tagline: 'Fresh rolls & chopsticks' },
-  { id: 'burgers', label: 'Burgers', emoji: '🍔', tagline: 'Gourmet patties & fries' },
-  { id: 'pasta', label: 'Pasta', emoji: '🍝', tagline: 'Romantic candlelight noodles' },
-  { id: 'tacos', label: 'Tacos', emoji: '🌮', tagline: 'Fiesta crunch & flavor' },
-  { id: 'ramen', label: 'Ramen', emoji: '🍜', tagline: 'Warm comforting broth' },
-  { id: 'surprise', label: 'Surprise me', emoji: '🎁', tagline: "A secret chef's special" },
+  {
+    id: 'chaya_kadi',
+    label: 'Chaya & Kadi',
+    emoji: '☕',
+    tagline: 'Chaya, pazhampori & snacks',
+  },
+  {
+    id: 'mandi',
+    label: 'Mandi',
+    emoji: '🍗',
+    tagline: 'A feast to share together',
+  },
+  {
+    id: 'dessert',
+    label: 'Desserts',
+    emoji: '🍰',
+    tagline: 'Something sweet for us',
+  },
+  {
+    id: 'kerala_meals',
+    label: 'Kerala Meals',
+    emoji: '🍛',
+    tagline: 'Naadan food favourites',
+  },
+  {
+    id: 'biriyani',
+    label: 'Biriyani',
+    emoji: '🍲',
+    tagline: 'Aromatic and delicious',
+  },
+  {
+    id: 'shawarma',
+    label: 'Shawarma',
+    emoji: '🌯',
+    tagline: 'Spicy street-food favourite',
+  },
+  {
+    id: 'ice_cream',
+    label: 'Ice Cream',
+    emoji: '🍨',
+    tagline: 'A cool little treat',
+  },
+  {
+    id: 'surprise',
+    label: 'Surprise me',
+    emoji: '🎁',
+    tagline: 'Let it be a sweet surprise',
+  },
 ];
 
 export const StepFood: React.FC<StepFoodProps> = ({
@@ -24,7 +66,14 @@ export const StepFood: React.FC<StepFoodProps> = ({
   onNext,
   onBack,
 }) => {
-  const [selectedFood, setSelectedFood] = useState<string>(initialFood || 'pasta');
+  const validInitialFood = FOOD_OPTIONS.some(
+    (item) => item.id === initialFood
+  )
+    ? initialFood
+    : 'mandi';
+
+  const [selectedFood, setSelectedFood] =
+    useState<string>(validInitialFood);
 
   const handleSelect = (id: string) => {
     sound.playSoftTap();
@@ -37,66 +86,69 @@ export const StepFood: React.FC<StepFoodProps> = ({
   };
 
   return (
-    <div className="w-full max-w-lg mx-auto relative z-10 px-4 py-6">
-      <div className="bg-[#FFFDF7] border-2 border-[#F0D5DF] rounded-[28px] shadow-xl p-6 sm:p-8 relative">
-        {/* Back Button */}
+    <div className="relative z-10 mx-auto w-full max-w-lg px-4 py-6">
+      <div className="relative rounded-[28px] border-2 border-[#F0D5DF] bg-[#FFFDF7] p-6 shadow-xl sm:p-8">
+        {/* Back button */}
         <button
+          type="button"
           onClick={() => {
             sound.playSoftTap();
             onBack();
           }}
-          className="absolute top-5 left-5 p-2 rounded-full text-[#8C6A79] hover:text-[#542B3D] hover:bg-[#FBE8EE] transition-all cursor-pointer"
+          className="absolute left-5 top-5 cursor-pointer rounded-full p-2 text-[#8C6A79] transition-all hover:bg-[#FBE8EE] hover:text-[#542B3D]"
           aria-label="Go back"
         >
-          <ArrowLeft className="w-5 h-5" />
+          <ArrowLeft className="h-5 w-5" />
         </button>
 
-        {/* Header Tag */}
-        <div className="text-center mb-4">
-          <span className="inline-block px-3.5 py-1 rounded-full bg-[#FBE8EE] border border-[#F0D5DF] text-xs font-bold text-[#E66B9A] tracking-wider uppercase shadow-xs">
+        {/* Header tag */}
+        <div className="mb-4 text-center">
+          <span className="inline-block rounded-full border border-[#F0D5DF] bg-[#FBE8EE] px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-[#E66B9A] shadow-sm">
             Step 2 of 4 • Feast
           </span>
         </div>
 
         {/* Heading */}
-        <h1 className="text-2xl sm:text-3xl font-bold text-[#542B3D] text-center mb-1 font-romantic">
-          What are we craving, cutie? 🍓
+        <h1 className="mb-1 text-center font-romantic text-2xl font-bold text-[#542B3D] sm:text-3xl">
+          Entha kazhikkan thonnunne, cutie? 🍓
         </h1>
-        <p className="text-xs sm:text-sm text-[#8C6A79] text-center mb-6">
-          Pick your date-night vibe.
+
+        <p className="mb-6 text-center text-xs text-[#8C6A79] sm:text-sm">
+          Pick your perfect date-night feast.
         </p>
 
-        {/* Food Cards Grid: 3 cols desktop, 2 cols mobile */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-6">
+        {/* Responsive food-card grid */}
+        <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
           {FOOD_OPTIONS.map((item) => {
             const isSelected = selectedFood === item.id;
+
             return (
               <button
                 key={item.id}
                 type="button"
                 onClick={() => handleSelect(item.id)}
-                className={`relative p-3.5 rounded-[20px] text-center flex flex-col items-center justify-center transition-all cursor-pointer select-none ${
+                aria-pressed={isSelected}
+                className={`relative flex cursor-pointer select-none flex-col items-center justify-center rounded-[20px] p-3.5 text-center transition-all ${
                   isSelected
-                    ? 'bg-[#FFEBF2] border-2 border-[#E66B9A] shadow-md scale-[1.03]'
-                    : 'bg-[#FFFDF7] border border-[#F0D5DF] hover:bg-[#FBE8EE]/60 hover:-translate-y-0.5'
+                    ? 'scale-[1.03] border-2 border-[#E66B9A] bg-[#FFEBF2] shadow-md'
+                    : 'border border-[#F0D5DF] bg-[#FFFDF7] hover:-translate-y-0.5 hover:bg-[#FBE8EE]/60'
                 }`}
               >
-                {/* Checkmark badge */}
                 {isSelected && (
-                  <span className="absolute top-2 right-2 w-5 h-5 rounded-full bg-[#E66B9A] text-white flex items-center justify-center text-[10px]">
-                    <Check className="w-3 h-3 stroke-[3]" />
+                  <span className="absolute right-2 top-2 flex h-5 w-5 items-center justify-center rounded-full bg-[#E66B9A] text-[10px] text-white">
+                    <Check className="h-3 w-3 stroke-[3]" />
                   </span>
                 )}
 
-                <span className="text-3xl sm:text-4xl mb-1.5 transform hover:scale-110 transition-transform">
+                <span className="mb-1.5 text-3xl transition-transform hover:scale-110 sm:text-4xl">
                   {item.emoji}
                 </span>
 
-                <span className="text-sm font-extrabold text-[#542B3D] mb-0.5">
+                <span className="mb-0.5 text-sm font-extrabold text-[#542B3D]">
                   {item.label}
                 </span>
 
-                <span className="text-[11px] text-[#8C6A79] line-clamp-1">
+                <span className="line-clamp-1 text-[11px] text-[#8C6A79]">
                   {item.tagline}
                 </span>
               </button>
@@ -104,28 +156,30 @@ export const StepFood: React.FC<StepFoodProps> = ({
           })}
         </div>
 
-        {/* Selected preview chip */}
-        <div className="text-center mb-5">
+        {/* Selected food preview */}
+        <div className="mb-5 text-center">
           <p className="text-xs text-[#8C6A79]">
             Craving:{' '}
             <span className="font-bold text-[#E66B9A]">
-              {FOOD_OPTIONS.find((f) => f.id === selectedFood)?.emoji}{' '}
-              {FOOD_OPTIONS.find((f) => f.id === selectedFood)?.label}
+              {FOOD_OPTIONS.find(
+                (item) => item.id === selectedFood
+              )?.emoji}{' '}
+              {FOOD_OPTIONS.find(
+                (item) => item.id === selectedFood
+              )?.label}
             </span>
           </p>
         </div>
 
-        {/* Submit Button */}
-        <div>
-          <button
-            type="button"
-            onClick={handleContinue}
-            className="w-full bg-[#E66B9A] hover:bg-[#D95386] active:scale-95 text-white font-extrabold text-base py-3.5 px-6 rounded-full shadow-lg shadow-[#E66B9A]/30 transition-all transform hover:-translate-y-0.5 cursor-pointer flex items-center justify-center gap-2"
-          >
-            <Sparkles className="w-4 h-4" />
-            <span>perfect, let's go! 💕</span>
-          </button>
-        </div>
+        {/* Continue button */}
+        <button
+          type="button"
+          onClick={handleContinue}
+          className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-full bg-[#E66B9A] px-6 py-3.5 text-base font-extrabold text-white shadow-lg shadow-[#E66B9A]/30 transition-all hover:-translate-y-0.5 hover:bg-[#D95386] active:scale-95"
+        >
+          <Sparkles className="h-4 w-4" />
+          <span>perfect, let's go! 💕</span>
+        </button>
       </div>
     </div>
   );
