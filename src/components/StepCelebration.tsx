@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import confetti from 'canvas-confetti';
 import { sound } from '../utils/audio';
+import celebrationSticker from '../assets/images/celebration_sticker_1792412861747.jpg';
+import coupleCelebration from '../assets/images/couple_celebration_1792415502796.jpg';
 
 interface StepCelebrationProps {
   onNext: () => void;
@@ -56,13 +58,13 @@ export const StepCelebration: React.FC<StepCelebrationProps> = ({ onNext }) => {
         {/* Happy Couple Image with Celebration Sticker Backdrop */}
         <div className="relative mx-auto my-3 w-52 h-52 sm:w-60 sm:h-60 flex items-center justify-center">
           <img
-            src="/src/assets/images/celebration_sticker_1792412861747.jpg"
+            src={celebrationSticker}
             alt="Celebration sparkle sticker background"
             className="absolute inset-0 w-full h-full object-contain opacity-40 scale-110 pointer-events-none rounded-3xl"
             referrerPolicy="no-referrer"
           />
           <img
-            src="/src/assets/images/couple_celebration_1792415502796.jpg"
+            src={coupleCelebration}
             alt="Adorable happy cute couple leaping in joy"
             className="relative z-10 w-full h-full object-contain rounded-3xl animate-float-slow drop-shadow-md select-none"
             referrerPolicy="no-referrer"
