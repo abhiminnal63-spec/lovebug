@@ -1,49 +1,62 @@
+
 import React from 'react';
 import { sound } from '../utils/audio';
 import { RotateCcw } from 'lucide-react';
+import gentleCouple from '../assets/images/couple_gentle_1792415503612.jpg';
 
 interface StepDeclinedProps {
   onRestart: () => void;
 }
 
-export const StepDeclined: React.FC<StepDeclinedProps> = ({ onRestart }) => {
+export const StepDeclined: React.FC<StepDeclinedProps> = ({
+  onRestart,
+}) => {
   return (
-    <div className="w-full max-w-md mx-auto relative z-10 px-4 py-8">
-      <div className="bg-[#FFFDF7] border-2 border-[#F0D5DF] rounded-[28px] shadow-xl p-6 sm:p-8 text-center relative overflow-hidden">
-        {/* Header Tag */}
-        <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#FBE8EE] border border-[#F0D5DF] text-xs font-bold text-[#8C6A79] tracking-wider uppercase mb-3 shadow-xs">
+    <div className="relative z-10 mx-auto w-full max-w-md px-4 py-8">
+      <div className="relative overflow-hidden rounded-[28px] border-2 border-[#F0D5DF] bg-[#FFFDF7] p-6 text-center shadow-xl sm:p-8">
+        {/* Header tag */}
+        <div className="mb-3 inline-flex items-center gap-1.5 rounded-full border border-[#F0D5DF] bg-[#FBE8EE] px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-[#8C6A79] shadow-sm">
           <span>🌷 With Appreciation 🌷</span>
         </div>
 
         {/* Heading */}
-        <h1 className="text-2xl sm:text-3xl font-bold text-[#542B3D] mb-3 font-romantic">
+        <h1 className="mb-3 font-romantic text-2xl font-bold text-[#542B3D] sm:text-3xl">
           Thank you for being honest 🌷
         </h1>
 
-        <p className="text-sm text-[#8C6A79] leading-relaxed mb-6">
-          No pressure at all! You are wonderful, and your feelings always matter most. Wishing you a truly lovely day filled with warmth and sweet moments.
+        <p className="mb-6 text-sm leading-relaxed text-[#8C6A79] sm:text-base">
+          No pressure at all! You are wonderful, and your feelings always
+          matter most. Wishing you a truly lovely day filled with warmth
+          and sweet moments.
         </p>
 
-        {/* Gentle couple gesture */}
-        <div className="w-44 h-44 mx-auto my-4 flex items-center justify-center">
+        {/* Gentle couple image */}
+        <div className="mx-auto my-4 flex h-52 w-full max-w-[220px] items-center justify-center">
           <img
-            src="/src/assets/images/couple_gentle_1792415503612.jpg"
+            src={gentleCouple}
             alt="Gentle sweet couple smiling and waving warmly"
-            className="w-full h-full object-contain rounded-2xl drop-shadow-sm"
-            referrerPolicy="no-referrer"
+            className="h-full w-full rounded-2xl object-contain drop-shadow-sm"
+            loading="eager"
+            onError={(event) => {
+              console.error(
+                'Failed to load the gentle couple image:',
+                event.currentTarget.src
+              );
+            }}
           />
         </div>
 
         {/* Start over button */}
         <div className="mt-6">
           <button
+            type="button"
             onClick={() => {
               sound.playSoftTap();
               onRestart();
             }}
-            className="bg-[#F8DCE6] hover:bg-[#F2CCD9] text-[#542B3D] font-bold text-sm px-6 py-3 rounded-full border border-[#F0D5DF] transition-all cursor-pointer flex items-center justify-center gap-2 mx-auto"
+            className="mx-auto flex cursor-pointer items-center justify-center gap-2 rounded-full border border-[#F0D5DF] bg-[#F8DCE6] px-6 py-3 text-sm font-bold text-[#542B3D] transition-all hover:bg-[#F2CCD9] active:scale-95"
           >
-            <RotateCcw className="w-4 h-4" />
+            <RotateCcw className="h-4 w-4" />
             <span>start over ↻</span>
           </button>
         </div>
